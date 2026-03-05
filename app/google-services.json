@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937315925176",
+    "project_id": "recipedock",
+    "storage_bucket": "recipedock.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937315925176:android:be86148a5a8a3055f5084d",
+        "android_client_info": {
+          "package_name": "com.CSI3370.recipedock"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEI7obxNtrTn-oSs9UuxxGb2LO34qya8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
