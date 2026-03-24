@@ -24,6 +24,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Find the "Share a Skill" button
+        android.widget.Button btnShareSkill = findViewById(R.id.btnShareSkill);
+
+        // Tell the button to open the UploadActivity
+        btnShareSkill.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                android.content.Intent intent = new android.content.Intent(MainActivity.this, UploadActivity.class);
+                startActivity(intent);
+            }
+        });
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
