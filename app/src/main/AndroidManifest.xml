@@ -12,15 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateMate">
         <activity
-            android:name=".UploadActivity"
+            android:name=".VideoDetailActivity"
             android:exported="false" />
-        <!-- Remember to change the login to false and comment the intent filter so when run it go main -->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        <activity
+            android:name=".UploadActivity"
+            android:exported="false" /> <!-- Remember to change the login to false and comment the intent filter so when run it go main -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+<!---->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
