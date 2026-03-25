@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         });
         // Find the "Share a Skill" button
         android.widget.Button btnShareSkill = findViewById(R.id.btnShareSkill);
-
-        // Tell the button to open the UploadActivity
         btnShareSkill.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
