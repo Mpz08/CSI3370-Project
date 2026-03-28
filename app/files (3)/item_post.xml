@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header row: avatar + username + pin badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_default_avatar"
+                app:civ_border_color="@color/primary"
+                app:civ_border_width="1.5dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@username"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"/>
+
+            </LinearLayout>
+
+            <!-- Pinned badge -->
+            <TextView
+                android:id="@+id/tvPinned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📌 Pinned"
+                android:textSize="12sp"
+                android:textColor="@color/primary"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <!-- Media image/video thumbnail -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp">
+
+            <ImageView
+                android:id="@+id/imgMedia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
+            <!-- Video badge -->
+            <TextView
+                android:id="@+id/tvVideoTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▶ Video"
+                android:textColor="@color/white"
+                android:background="#AA000000"
+                android:padding="6dp"
+                android:layout_gravity="bottom|start"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+        <!-- Actions row: like + comments -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/btnLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🤍 Like"
+                android:textSize="14sp"
+                android:padding="4dp"
+                android:textColor="@color/text_primary"/>
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 likes"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💬 0 comments"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:padding="12dp"
+            android:paddingTop="6dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

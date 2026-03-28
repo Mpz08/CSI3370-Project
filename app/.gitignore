@@ -1,0 +1,15 @@
+/build
+# Firebase config - NEVER push this
+google-services.json
+
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+/build
+/app/build

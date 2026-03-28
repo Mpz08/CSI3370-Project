@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CookFeed</string>
+    <string name="login">Login</string>
+    <string name="register">Create Account</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="no_account">Don\'t have an account? Sign up</string>
+    <string name="have_account">Already have an account? Log in</string>
+    <string name="send_reset">Send Reset Email</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="display_name">Display Name (optional)</string>
+    <string name="recovery_hint">Enter your email address and we\'ll send you a link to reset your password.</string>
+</resources>

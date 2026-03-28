@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28532465088",
+    "project_id": "cookfeed-9a727",
+    "storage_bucket": "cookfeed-9a727.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28532465088:android:75a47d2a5d9f6eded0fc25",
+        "android_client_info": {
+          "package_name": "com.example.cookfeed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_ojFLFOIHTTGmHNdlgW0YRhWetFRhaOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
