@@ -12,13 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateMate">
         <activity
-            android:name=".VideoDetailActivity"
+            android:name=".TrendingActivity"
             android:exported="false" />
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+        <activity
+            android:name=".VideoDetailActivity"
+            android:exported="false" /> <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
         <activity
             android:name=".UploadActivity"
             android:exported="false" /> <!-- Remember to change the login to false and comment the intent filter so when run it go main -->
@@ -27,7 +28,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-<!---->
+                <!--  -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
