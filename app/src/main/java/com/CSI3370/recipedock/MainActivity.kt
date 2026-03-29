@@ -11,6 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.CSI3370.recipedock.ui.theme.RecipeDockTheme
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import coil.compose.AsyncImage
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +28,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { LOGIN, SIGNUP, FORGOT }
+private enum class Screen { LOGIN, SIGNUP, FORGOT, PROFILE}
 
 @Composable
 fun AppRoot() {
@@ -34,9 +38,7 @@ fun AppRoot() {
         Screen.LOGIN -> LoginScreen(
             onGoSignup = { screen = Screen.SIGNUP },
             onGoForgot = { screen = Screen.FORGOT },
-            onLoggedIn = {
-                // TODO: later, navigate to your Home/Feed screen
-            }
+            onLoggedIn = { screen = Screen.PROFILE }
         )
 
         Screen.SIGNUP -> SignupScreen(
@@ -46,6 +48,8 @@ fun AppRoot() {
         Screen.FORGOT -> ForgotPasswordScreen(
             onGoLogin = { screen = Screen.LOGIN }
         )
+
+        Screen.PROFILE -> ProfileScreen()
     }
 }
 
@@ -257,5 +261,218 @@ fun SignupScreen(onGoLogin: () -> Unit) {
 
         Spacer(Modifier.height(12.dp))
         if (status.isNotBlank()) Text(status)
+    }
+}
+@Composable
+fun ProfileScreen() {
+    val repo = remember { ProfileRepo() }
+
+    var displayName by remember { mutableStateOf("Loading...") }
+    var bio by remember { mutableStateOf("") }
+    var profileImageUrl by remember { mutableStateOf("") }
+
+    var editingName by remember { mutableStateOf(false) }
+    var editingBio by remember { mutableStateOf(false) }
+
+    var newDisplayName by remember { mutableStateOf("") }
+    var newBio by remember { mutableStateOf("") }
+
+    var status by remember { mutableStateOf("") }
+
+    val imagePicker = androidx.activity.compose.rememberLauncherForActivityResult(
+        contract = androidx.activity.result.contract.ActivityResultContracts.GetContent()
+    ) { uri ->
+        if (uri != null) {
+            repo.uploadProfileImage(uri) { result, imageUrl ->
+                status = result.msg
+                if (result.ok && imageUrl != null) {
+                    profileImageUrl = imageUrl
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        repo.loadProfile { profile ->
+            displayName = profile.displayName
+            bio = profile.bio
+            profileImageUrl = profile.profileImageUrl
+            newDisplayName = profile.displayName
+            newBio = profile.bio
+        }
+    }
+
+    LaunchedEffect(status) {
+        if (status.isNotBlank()) {
+            kotlinx.coroutines.delay(2000)
+            status = ""
+        }
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Card(
+                modifier = Modifier
+                    .size(90.dp),
+                onClick = {
+                    imagePicker.launch("image/*")
+                }
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = androidx.compose.ui.Alignment.Center
+                ) {
+                    if (profileImageUrl.isNotBlank()) {
+                        coil.compose.AsyncImage(
+                            model = profileImageUrl,
+                            contentDescription = "Profile Picture",
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    } else {
+                        Text("Add\nPhoto")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                if (editingName) {
+                    OutlinedTextField(
+                        value = newDisplayName,
+                        onValueChange = { newDisplayName = it },
+                        label = { Text("Display Name") },
+                        singleLine = true
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Button(onClick = {
+                        repo.updateDisplayName(newDisplayName) { result ->
+                            status = result.msg
+                            if (result.ok) {
+                                displayName = newDisplayName
+                                editingName = false
+                            }
+                        }
+                    }) {
+                        Text("Save Name")
+                    }
+                } else {
+                    Text(
+                        text = displayName,
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    TextButton(onClick = {
+                        editingName = true
+                    }) {
+                        Text("Edit Display Name")
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                if (editingBio) {
+                    OutlinedTextField(
+                        value = newBio,
+                        onValueChange = { newBio = it },
+                        label = { Text("Bio") }
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Button(onClick = {
+                        repo.updateBio(newBio) { result ->
+                            status = result.msg
+                            if (result.ok) {
+                                bio = newBio
+                                editingBio = false
+                            }
+                        }
+                    }) {
+                        Text("Save Bio")
+                    }
+                } else {
+                    Text(
+                        text = if (bio.isBlank()) "Tap to add a bio" else bio,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+
+                    TextButton(onClick = {
+                        editingBio = true
+                    }) {
+                        Text("Edit Bio")
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        if (status.isNotBlank()) {
+            Text(status)
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Pinned",
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(120.dp)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = androidx.compose.ui.Alignment.Center
+            ) {
+                Text("Pinned videos will go here")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Recent Posts",
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            repeat(4) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = androidx.compose.ui.Alignment.Center
+                    ) {
+                        Text("Post ${it + 1}")
+                    }
+                }
+            }
+        }
     }
 }
