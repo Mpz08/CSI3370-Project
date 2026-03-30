@@ -1,5 +1,6 @@
 package com.CSI3370.recipedock
 
+import com.example.platemate.TrendingActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { LOGIN, SIGNUP, FORGOT, PROFILE}
+private enum class Screen { LOGIN, SIGNUP, FORGOT, PROFILE, TRENDING }
 
 @Composable
 fun AppRoot() {
@@ -38,7 +39,7 @@ fun AppRoot() {
         Screen.LOGIN -> LoginScreen(
             onGoSignup = { screen = Screen.SIGNUP },
             onGoForgot = { screen = Screen.FORGOT },
-            onLoggedIn = { screen = Screen.PROFILE }
+            onLoggedIn = { screen = Screen.TRENDING }
         )
 
         Screen.SIGNUP -> SignupScreen(
@@ -50,6 +51,8 @@ fun AppRoot() {
         )
 
         Screen.PROFILE -> ProfileScreen()
+
+        Screen.TRENDING -> TrendingLauncher()
     }
 }
 
@@ -474,5 +477,24 @@ fun ProfileScreen() {
                 }
             }
         }
+    }
+}
+@Composable
+fun TrendingLauncher() {
+    val context = androidx.compose.ui.platform.LocalContext.current
+
+    LaunchedEffect(Unit) {
+        val intent = android.content.Intent(
+            context,
+            TrendingActivity::class.java
+        )
+        context.startActivity(intent)
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = androidx.compose.ui.Alignment.Center
+    ) {
+        Text("Opening feed...")
     }
 }
