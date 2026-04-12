@@ -14,15 +14,28 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        Button btnLogin = findViewById(R.id.btnRegister);
-
-        btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, TrendingActivity.class);
-            startActivity(intent);
-            finish();
+// 1. Login Button → go to Trending (NOT MainActivity)
+        android.widget.Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                android.content.Intent intent = new android.content.Intent(LoginActivity.this, TrendingActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
+
+// 2. Create Account Button
+        android.widget.Button btnGoToCreate = findViewById(R.id.btnGoToCreate);
+        btnGoToCreate.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                android.content.Intent intent = new android.content.Intent(LoginActivity.this, CreateAccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

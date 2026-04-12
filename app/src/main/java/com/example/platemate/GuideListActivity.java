@@ -9,17 +9,26 @@ import com.CSI3370.recipedock.R;
 //import androidx.core.view.ViewCompat;
 //import androidx.core.view.WindowInsetsCompat;
 
-public class GuideListActivity extends AppCompatActivity {
 
+public class GuideListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_guide_list);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+        // 1. Find the back button we just added to the XML
+        android.widget.Button btnGoBack = findViewById(R.id.btnGoBack);
+
+        // 2. Tell the button to listen for a click
+        btnGoBack.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                // 3. Close this Search screen and drop back to the Main screen!
+                finish();
+            }
+        });
+
     }
+
 }

@@ -32,6 +32,7 @@ public class UploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
+// --- YOUR UPLOAD LOGIC ---
         etTitle = findViewById(R.id.etVideoTitle);
         etDescription = findViewById(R.id.etVideoDescription);
         btnSelect = findViewById(R.id.btnSelectVideo);
@@ -45,22 +46,29 @@ public class UploadActivity extends AppCompatActivity {
         });
 
         btnPost.setOnClickListener(v -> uploadVideo());
+
+
+// --- TEAMMATE NAVIGATION UI ---
+        android.widget.Button navHome = findViewById(R.id.navHome);
+        navHome.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(UploadActivity.this, MainActivity.class);
+            intent.setFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
+        android.widget.Button navTrending = findViewById(R.id.navTrending);
+        navTrending.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(UploadActivity.this, TrendingActivity.class);
+            startActivity(intent);
+        });
+
+        android.widget.Button navProfile = findViewById(R.id.navProfile);
+        navProfile.setOnClickListener(v -> {
+        });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_VIDEO && resultCode == RESULT_OK && data != null) {
-            videoUri = data.getData();
-            btnSelect.setText("Video Selected");
-            Toast.makeText(this, "Video selected!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void uploadVideo() {
         if (videoUri == null) {
-            Toast.makeText(this, "Select a video first", Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(this, "Select a video first", android.widget.Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -68,29 +76,29 @@ public class UploadActivity extends AppCompatActivity {
         String description = etDescription.getText().toString().trim();
 
         if (title.isEmpty()) {
-            Toast.makeText(this, "Enter a title", Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(this, "Enter a title", android.widget.Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+        if (com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser() == null) {
+            android.widget.Toast.makeText(this, "User not logged in", android.widget.Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String uid = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
         String fileName = "videos/" + uid + "_" + System.currentTimeMillis() + ".mp4";
 
-        FirebaseStorage.getInstance().getReference()
+        com.google.firebase.storage.FirebaseStorage.getInstance().getReference()
                 .child(fileName)
                 .putFile(videoUri)
                 .addOnSuccessListener(taskSnapshot ->
-                        FirebaseStorage.getInstance().getReference()
+                        com.google.firebase.storage.FirebaseStorage.getInstance().getReference()
                                 .child(fileName)
                                 .getDownloadUrl()
                                 .addOnSuccessListener(uri -> {
                                     String videoUrl = uri.toString();
 
-                                    Map<String, Object> video = new HashMap<>();
+                                    java.util.Map<String, Object> video = new java.util.HashMap<>();
                                     video.put("title", title);
                                     video.put("description", description);
                                     video.put("videoUrl", videoUrl);
@@ -98,26 +106,26 @@ public class UploadActivity extends AppCompatActivity {
                                     video.put("timestamp", System.currentTimeMillis());
                                     video.put("likes", 0);
 
-                                    FirebaseFirestore.getInstance()
+                                    com.google.firebase.firestore.FirebaseFirestore.getInstance()
                                             .collection("videos")
                                             .add(video)
                                             .addOnSuccessListener(doc -> {
-                                                Toast.makeText(this, "Video uploaded!", Toast.LENGTH_SHORT).show();
+                                                android.widget.Toast.makeText(this, "Video uploaded!", android.widget.Toast.LENGTH_SHORT).show();
                                                 etTitle.setText("");
                                                 etDescription.setText("");
                                                 videoUri = null;
-                                                btnSelect.setText("Tap to Select Video from Gallery");
+                                                btnSelect.setText("Tap to Select Video");
                                             })
                                             .addOnFailureListener(e ->
-                                                    Toast.makeText(this, "Firestore error: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                                                    android.widget.Toast.makeText(this, "Firestore error: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show()
                                             );
                                 })
                                 .addOnFailureListener(e ->
-                                        Toast.makeText(this, "URL error: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                                        android.widget.Toast.makeText(this, "URL error: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show()
                                 )
                 )
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Upload failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                        android.widget.Toast.makeText(this, "Upload failed: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show()
                 );
     }
 }
