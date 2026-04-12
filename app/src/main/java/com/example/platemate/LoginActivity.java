@@ -1,39 +1,34 @@
 package com.example.platemate;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        // Find the register/login button by its ID
-        android.widget.Button btnLogin = findViewById(R.id.btnRegister);
 
-        // Tell the button what to do when clicked
+        // 1. Wire the Login Button (Goes to Main)
+        android.widget.Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                // Create an Intent to go to the Home Screen (MainActivity)
                 android.content.Intent intent = new android.content.Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
-
-                // This closes the login screen so the user can't press the "back" button to return to it
-                finish();
+                finish(); // This prevents the user from hitting "back" to go to the login screen after logging in
             }
         });
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+        // 2. Wire the Create Account Button (Goes to new Create Account page)
+        android.widget.Button btnGoToCreate = findViewById(R.id.btnGoToCreate);
+        btnGoToCreate.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                android.content.Intent intent = new android.content.Intent(LoginActivity.this, CreateAccountActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -3,43 +3,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp"
     android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to PlateMate"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:layout_marginBottom="8dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Master the kitchen, one skill at a time."
-        android:textSize="16sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="40dp"/>
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to PlateMate"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp"/>
 
-    <Button
-        android:id="@+id/btnFindGuide"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Master the kitchen, one skill at a time."
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="40dp"/>
+
+        <Button
+            android:id="@+id/btnFindGuide"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Find a Guide"
+            android:textSize="18sp"
+            android:backgroundTint="#2196F3" />
+
+        <Button
+            android:id="@+id/btnShareSkill"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Share a Skill"
+            android:textSize="18sp"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Find a Guide"
-        android:textSize="18sp"
-        android:backgroundTint="#2196F3" />
+        android:orientation="horizontal"
+        android:background="#EEEEEE"
+        android:elevation="8dp">
 
-    <Button
-        android:id="@+id/btnShareSkill"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Share a Skill"
-        android:textSize="18sp"
-        android:backgroundTint="#4CAF50"
-        android:layout_marginTop="16dp"/>
+        <Button
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Home"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#333333"/>
+
+        <Button
+            android:id="@+id/navTrending"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Trending"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#333333"/>
+
+        <Button
+            android:id="@+id/navUpload"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Upload"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#333333"/>
+
+        <Button
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Profile"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#333333"/>
+    </LinearLayout>
 
 </LinearLayout>
