@@ -33,7 +33,19 @@ private enum class Screen { LOGIN, SIGNUP, FORGOT, PROFILE, TRENDING }
 
 @Composable
 fun AppRoot() {
-    var screen by remember { mutableStateOf(Screen.LOGIN) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val activity = context as? android.app.Activity
+    val startScreen = activity?.intent?.getStringExtra("start_screen")
+
+    var screen by remember {
+        mutableStateOf(
+            when (startScreen) {
+                "profile" -> Screen.PROFILE
+                "trending" -> Screen.TRENDING
+                else -> Screen.LOGIN
+            }
+        )
+    }
 
     when (screen) {
         Screen.LOGIN -> LoginScreen(
@@ -269,7 +281,7 @@ fun SignupScreen(onGoLogin: () -> Unit) {
 @Composable
 fun ProfileScreen() {
     val repo = remember { ProfileRepo() }
-
+    val context = androidx.compose.ui.platform.LocalContext.current
     var displayName by remember { mutableStateOf("Loading...") }
     var bio by remember { mutableStateOf("") }
     var profileImageUrl by remember { mutableStateOf("") }
@@ -279,7 +291,6 @@ fun ProfileScreen() {
 
     var newDisplayName by remember { mutableStateOf("") }
     var newBio by remember { mutableStateOf("") }
-
     var status by remember { mutableStateOf("") }
 
     val imagePicker = androidx.activity.compose.rememberLauncherForActivityResult(
@@ -291,6 +302,7 @@ fun ProfileScreen() {
                 if (result.ok && imageUrl != null) {
                     profileImageUrl = imageUrl
                 }
+
             }
         }
     }
@@ -317,6 +329,20 @@ fun ProfileScreen() {
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        Button(
+            onClick = {
+                context.startActivity(
+                    android.content.Intent(
+                        context,
+                        TrendingActivity::class.java
+                    )
+                )
+            }
+        ) {
+            Text("← Back")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {

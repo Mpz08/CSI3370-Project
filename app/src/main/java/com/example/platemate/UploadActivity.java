@@ -51,7 +51,7 @@ public class UploadActivity extends AppCompatActivity {
 // --- TEAMMATE NAVIGATION UI ---
         android.widget.Button navHome = findViewById(R.id.navHome);
         navHome.setOnClickListener(v -> {
-            android.content.Intent intent = new android.content.Intent(UploadActivity.this, MainActivity.class);
+            android.content.Intent intent = new android.content.Intent(UploadActivity.this, TrendingActivity.class);
             intent.setFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
@@ -64,6 +64,12 @@ public class UploadActivity extends AppCompatActivity {
 
         android.widget.Button navProfile = findViewById(R.id.navProfile);
         navProfile.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(
+                    UploadActivity.this,
+                    com.CSI3370.recipedock.MainActivity.class
+            );
+            intent.putExtra("start_screen", "profile");
+            startActivity(intent);
         });
     }
     private void uploadVideo() {

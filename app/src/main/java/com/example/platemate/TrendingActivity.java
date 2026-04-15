@@ -1,10 +1,14 @@
 package com.example.platemate;
 
 import android.os.Bundle;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.CSI3370.recipedock.R;
 
 public class TrendingActivity extends AppCompatActivity {
+    private Button navProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,12 @@ public class TrendingActivity extends AppCompatActivity {
         navProfile.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
+                android.content.Intent intent = new android.content.Intent(
+                        TrendingActivity.this,
+                        com.CSI3370.recipedock.MainActivity.class
+                );
+                intent.putExtra("start_screen", "profile");
+                startActivity(intent);
             }
         });
     }
